@@ -1,0 +1,53 @@
+{
+  "name": "credit.person.frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "jest --clearCache &&  jest --coverage",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "compodoc": "npx compodoc -p tsconfig.app.json src"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "11.0.4",
+    "@angular/cdk": "^11.0.2",
+    "@angular/common": "11.0.4",
+    "@angular/compiler": "11.0.4",
+    "@angular/core": "11.0.4",
+    "@angular/forms": "11.0.4",
+    "@angular/material": "^11.0.2",
+    "@angular/platform-browser": "11.0.4",
+    "@angular/platform-browser-dynamic": "11.0.4",
+    "@angular/router": "11.0.4",
+    "admin-lte": "^3.0.5",
+    "rxjs": "6.6.3",
+    "tslib": "2.0.3",
+    "zone.js": "0.11.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "0.1100.4",
+    "@angular/cli": "11.0.4",
+    "@angular/compiler-cli": "11.0.4",
+    "@types/jasmine": "3.6.2",
+    "@types/jest": "^26.0.19",
+    "@types/node": "14.14.12",
+    "codelyzer": "6.0.1",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "jest": "^26.4.2",
+    "jest-html-reporters": "^2.1.0",
+    "jest-junit": "^11.1.0",
+    "jest-preset-angular": "^8.3.1",
+    "jest-sonar": "^0.2.11",
+    "jest-watch-typeahead": "^0.6.0",
+    "protractor": "7.0.0",
+    "ts-node": "9.1.1",
+    "tslint": "6.1.3",
+    "typescript": "4.0.5"
+  }
+}
