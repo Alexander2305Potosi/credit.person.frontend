@@ -1,0 +1,44 @@
+<h1 mat-dialog-title> {{ data.title }}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="frm">
+    <mat-form-field>
+      <input matInput placeholder="Nombre Persona" formControlName="namePerson" class="person-input" >
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field>
+      <input matInput placeholder="Apellidos Persona" formControlName="lastNamePerson" class="person-input">
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Valor Credito" formControlName='totalCost'>
+      <mat-hint align="end">{{frm.controls.totalCost.value?.length || 0}}/10</mat-hint>
+      <mat-error *ngIf="frm.controls.totalCost.invalid">{{gettotalCostErrorMess()}}</mat-error>
+    </mat-form-field>
+
+    <br />
+
+     
+    <mat-form-field>
+      <input matInput type="number" placeholder="Número Cuotas" formControlName='totalFee'>
+      <mat-hint align="end">{{frm.controls.totalFee.value?.length || 0}}/2</mat-hint>
+      <mat-error *ngIf="frm.controls.totalFee.invalid">{{gettotalFeeErrorMess()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="visibility: hidden; height: 0vh !important">
+      <input matInput type="text" formControlName='idCredit'>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]>Cancelar</button>
+  <button mat-raised-button color="primary" (click)='save(frm)' class="btnSave" [disabled]="!frm.valid">
+    <mat-icon aria-label="icon-button">save </mat-icon>
+    <span>Actualizar Credito</span>
+  </button>
+</div>

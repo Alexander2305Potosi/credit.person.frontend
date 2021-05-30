@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: '', redirectTo: '/credit-list', pathMatch: 'full'
   },
   {
-    path: 'credit-list', loadChildren: () => import('./modules/credit-list/credit-list.module').then(m => m.CreditListModule),
+    path: 'credit-list', loadChildren: () => import('./routing/credit-list/credit-list.module').then(m => m.CreditListModule),
 
   }
 ];
