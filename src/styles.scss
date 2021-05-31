@@ -7,7 +7,7 @@
 @include mat-core();
 //#0FBBB5
 // Light theme
-$light-primary: mat-palette($mat-indigo);
+$light-primary: mat-palette($mat-cyan);
 $light-accent : mat-palette($mat-pink, A200, A100, A400);
 $light-theme  : mat-light-theme($light-primary, $light-accent);
 
@@ -37,7 +37,6 @@ body {
 }
 
 
-/* ANIMACIÓN AL CARGAR UNA PÁGINA */
 .animated {
   -webkit-animation-duration : 1s;
   animation-duration         : 1s;
@@ -70,12 +69,10 @@ body {
   animation-name        : fadeIn;
 }
 
-/* FUENTE GLOBAL DEL SISTEMA */
 label {
   font-family: Roboto;
 }
 
-/* PONE LOS ICONOS DEL TOOLBAR A LA DERECHA */
 .spacer {
   flex: 1 1 auto !important;
 }

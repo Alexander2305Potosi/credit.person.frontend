@@ -3,7 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import {  of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,6 +14,7 @@ import { CreditListService } from 'src/app/services/credit-services/credit-servi
 import { ConfirmComponent } from '../../components/confirm/confirm.component';
 import { EditFormComponent } from './forms/edit/edit-form.component';
 import { CreateFormComponent } from './forms/create/create-form.component';
+import { MSGFORM } from 'src/app/utils/constanst';
 
 @Component({
   selector: 'app-credit-list',
@@ -49,13 +50,6 @@ export class CreditListComponent implements AfterViewInit, OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  private openSnack(data: any): void {
-    this.snack.openFromComponent(AlertComponent, {
-      data: { data: data },
-      duration: 3000
-    });
-  }
- 
 
   public applyFilter(filterValue: string): void {
     filterValue = filterValue.trim().toLowerCase();
@@ -70,22 +64,29 @@ export class CreditListComponent implements AfterViewInit, OnInit {
     }),
       catchError(() => {
         this.isLoading = false;
+        this.openSnack(MSGFORM.error.msg, true);
         return observableOf([]);
       });
+
 
   }
 
   edit(credit: Credit): void {
     const dialogRef = this.dialog.open(EditFormComponent, {
       width: '400px',
-      data: { title: 'Actualizar Crédito', action: 'edit', data: credit }
+      data: { title: 'Actualizar Crédito', data: credit }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getData();
       }
-    });
+    }),
+    catchError(() => {
+      this.isLoading = false;
+      this.openSnack(MSGFORM.error.msg, true);
+      return observableOf([]);
+    });;
 
 
   }
@@ -93,14 +94,47 @@ export class CreditListComponent implements AfterViewInit, OnInit {
   save(): void {
     const dialogRef = this.dialog.open(CreateFormComponent, {
       width: '400px',
-      data: { title: 'Crear Crédito', action: 'save' }
+      data: { title: 'Crear Crédito' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getData();
+        this.openSnack(MSGFORM.succes.msg, true);
       }
     });
   }
 
+
+  delete(credit: Credit): void {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '290px',
+      data: {
+        title: 'Eliminar Crédito',
+        message: '¿ Esta  seguro de eliminar el registro ?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.creditListService.delete(credit.idCredit).subscribe((data: any) => {
+          this.openSnack(MSGFORM.succes.msg, true);
+          this.getData();
+        }),
+        catchError(() => {
+          this.isLoading = false;
+          this.openSnack(MSGFORM.error.msg, true);
+          return observableOf([]);
+        });
+      }
+    });
+  }
+
+  private openSnack(msg: String, succes: boolean): void {
+    const dataSnack = { message: msg, succes: succes };
+    this.snack.openFromComponent(AlertComponent, {
+      data: dataSnack,
+      duration: 3000
+    });
+  }
 }

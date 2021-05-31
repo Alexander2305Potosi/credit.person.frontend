@@ -14,13 +14,14 @@ export class CreditListService implements ProviderCredit {
   }
 
   save(credit: Credit): Observable<Response> {
+    const idPerson = credit.idPerson['id'];
     return this.httpClient.post<Response>(
       CONSTANST.routes.credit.save,
       {
         idCredit: 0,
         totalCost: credit.totalCost,
         totalFee: credit.totalFee,
-        idPerson: credit.idPerson
+        idPerson: idPerson
       }
     );
   }
@@ -36,6 +37,10 @@ export class CreditListService implements ProviderCredit {
         idPerson: credit.idPerson
       }
     );
+  }
+
+  delete(idCredit: number): Observable<Response> {
+    return this.httpClient.delete<Response>(CONSTANST.routes.credit.delete + idCredit);
   }
 
 }

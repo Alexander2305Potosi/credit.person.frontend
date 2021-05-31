@@ -2,19 +2,13 @@
 
 <div mat-dialog-content>
   <form [formGroup]="frm">
-     
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Persona</mat-label>
-      <input type="text"
-             placeholder="filtre por palabra"
-             aria-label="Number"
-             matInput
-             formControlName='idPerson'
-             [formControl]="frm.controls.idPerson"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredPerson | async" [value]="option.name">
+      <input type="text" placeholder="filtre por palabra" aria-label="Number" matInput formControlName='idPerson'
+        [formControl]="frm.controls.idPerson" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredPerson | async" [value]="option">
           {{option.name}}
         </mat-option>
       </mat-autocomplete>
@@ -25,18 +19,18 @@
     <mat-form-field>
       <input matInput type="number" placeholder="Valor Credito" formControlName='totalCost'>
       <mat-hint align="end">{{frm.controls.totalCost.value?.length || 0}}/10</mat-hint>
-      <mat-error *ngIf="frm.controls.totalCost.invalid">{{gettotalCostErrorMesstotalCost(frm.controls.totalCost)}}</mat-error>
+      <mat-error *ngIf="frm.controls.totalCost.invalid">{{gettotalCostErrorMesstotalCost()}}</mat-error>
     </mat-form-field>
 
     <br />
 
-     
+
     <mat-form-field>
       <input matInput type="number" placeholder="Número Cuotas" formControlName='totalFee'>
       <mat-hint align="end">{{frm.controls.totalFee.value?.length || 0}}/10</mat-hint>
-      <mat-error *ngIf="frm.controls.totalFee.invalid">{{gettotalFeeErrorMesstotalCost(this.placeholder)}}</mat-error>
+      <mat-error *ngIf="frm.controls.totalFee.invalid">{{gettotalFeeErrorMesstotalFee()}}</mat-error>
     </mat-form-field>
- 
+
   </form>
 </div>
 

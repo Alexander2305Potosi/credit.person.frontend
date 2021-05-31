@@ -11,4 +11,6 @@ export abstract class ProviderCredit {
 
   abstract update(credit: Credit): Observable<Response>;
 
+  abstract delete(idCredit: number): Observable<Response>;
+
 }

@@ -34,24 +34,29 @@ describe('Pruebas para el component CreditListComponent', () => {
   });
 
   it('should AfterInit component', () => {
-    const ret = jest.spyOn(creditListServiceMock, 'getListCredit').mockReturnValue(of(credit));
+    jest.spyOn(creditListServiceMock, 'getListCredit').mockReturnValue(of(credit));
     component.ngAfterViewInit();
     component.ngAfterViewChecked();
     expect(creditListServiceMock.getListCredit).toHaveBeenCalled();
-    expect(ret.returnValues[0]).toBe(credit);
   });
 
-  it('should edit credit', () => {
+  it('should opne edit component credit', () => {
     component.edit(credit);
     component.ngAfterViewChecked();
-    expect(component).toBeTruthy();
+    expect(dialogMock.open).toHaveBeenCalled();
   });
 
 
-  it('should add credit', () => {
+  it('should open add component credit', () => {
     component.save();
     component.ngAfterViewChecked();
-    expect(component).toBeTruthy();
+    expect(dialogMock.open).toHaveBeenCalled();
+  });
+
+  it('should open delete component credit', () => {
+    component.delete(credit);
+    component.ngAfterViewChecked();
+    expect(dialogMock.open).toHaveBeenCalled();
   });
 
 

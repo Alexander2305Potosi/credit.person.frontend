@@ -9,6 +9,8 @@ import { Maestro } from '../../../../models/maestro';
 import {Observable} from 'rxjs';
 import {catchError, map, startWith} from 'rxjs/operators';
 import { MaestroService } from 'src/app/services/credit-services/maestro-service';
+import { MSGFORM } from 'src/app/utils/constanst';
+
 
 @Component({
   selector: 'app-create-form',
@@ -36,16 +38,13 @@ export class CreateFormComponent implements OnInit {
     this.initializeForm();
   }
 
-  private filter(value: string): Maestro[] {
+  private filter(value: String): Maestro[] {
     const filterValue = value.toLowerCase();
     return this.listPerson.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  openSnack(data: any) {
-    this.snack.openFromComponent(AlertComponent, {
-      data: { data: data },
-      duration: 3000
-    });
+  displayFn(maestro: Maestro): string {
+    return maestro && maestro.name ? maestro.name : '';
   }
 
   private loadDataMaestro() {
@@ -54,7 +53,8 @@ export class CreateFormComponent implements OnInit {
       this.filteredPerson = this.frm.controls.idPerson.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filter(value))
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.filter(name) : this.listPerson.slice())
       );
     }),
     catchError(() => {
@@ -63,9 +63,6 @@ export class CreateFormComponent implements OnInit {
   }
 
   private initializeForm() {
-    const IS_EDITING = this.data.action === 'edit';
-    const data = this.data.data;
-
     this.frm = this.fb.group({
       idPerson:  new FormControl(null, [Validators.required, Validators.minLength(1)]),
       totalCost: new FormControl(null, [Validators.required, Validators.minLength(9)]),
@@ -74,24 +71,33 @@ export class CreateFormComponent implements OnInit {
   }
 
   public save(form: FormGroup) {
-
     this.creditListService.save(form.value).subscribe((data: any) => {
-      this.openSnack(data);
-
-      // if (data.success) {
         this.dialogRef.close(true);
-      // }
+        this.openSnack(MSGFORM.succes.msg, true);
+    }),
+    catchError(() => {
+      this.openSnack(MSGFORM.error.msg, true);
+      return new Observable();
     });
      
   }
 
   public gettotalCostErrorMesstotalCost() {
-    return this.frm.controls.totalCost.hasError('required') ? 'totalCost is required' :
+    return this.frm.controls.totalCost.hasError('required') ? MSGFORM.error.fieldrequerid :
       this.frm.controls.totalCost.hasError('minlength') ? 'Al menos un numero debe ser ingresado' : '';
   }
 
-  public gettotalFeeErrorMesstotalCost() {
-    return this.frm.controls.totalFee.hasError('required') ? '' : '';
+  public gettotalFeeErrorMesstotalFee() {
+    return this.frm.controls.totalFee.hasError('required') ? MSGFORM.error.fieldrequerid :
+    this.frm.controls.totalFee.hasError('minlength') ? 'Al menos un numero debe ser ingresado' : '';
+  }
+
+  private openSnack(msg: String, succes: boolean): void {
+    const dataSnack = { message: msg, succes: succes };
+    this.snack.openFromComponent(AlertComponent, {
+      data: dataSnack,
+      duration: 3000
+    });
   }
 
 }

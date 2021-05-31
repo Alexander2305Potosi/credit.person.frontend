@@ -11,7 +11,8 @@ describe('CreditListService', () => {
             const httpMock = {
                 post: jest.fn().mockReturnValue(of(credit)),
                 get: jest.fn().mockReturnValue(of(credit)),
-                put: jest.fn().mockReturnValue(of(credit))
+                put: jest.fn().mockReturnValue(of(credit)),
+                delete: jest.fn().mockReturnValue(of(credit))
             };
             const service = new CreditListService(httpMock as any);
             service.getListCredit(search).subscribe(data => {
@@ -29,6 +30,13 @@ describe('CreditListService', () => {
             });
 
             service.update(credit).subscribe(data => {
+                expect(httpMock.put).toBeDefined();
+                expect(httpMock.put).toHaveBeenCalled();
+                expect(data).toEqual(credit);
+                done();
+            });
+
+            service.delete(1).subscribe(data => {
                 expect(httpMock.put).toBeDefined();
                 expect(httpMock.put).toHaveBeenCalled();
                 expect(data).toEqual(credit);

@@ -1,3 +1,9 @@
-<span >
-    ALERTA
-</span>
+<div class="color-text aling-end-alert-icon">
+    <div>
+        {{ data.message }}
+    </div>
+    <div>
+        <i *ngIf="data.succes" class="material-icons succes">check_circle</i>
+        <i *ngIf="!data.succes" class="material-icons error">cancel</i>
+    </div>
+</div>

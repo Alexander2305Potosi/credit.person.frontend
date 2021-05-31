@@ -5,7 +5,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 import { CreditListService } from '../../../../services/credit-services/credit-service';
 import { AlertComponent } from '../../../../components/alert/alert.component';
-import { Credit } from '../../../../models/credit';
+import { MSGFORM } from 'src/app/utils/constanst';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-form',
@@ -29,45 +30,47 @@ export class EditFormComponent implements OnInit {
     this.initializeForm();
   }
 
-  openSnack(data: any) {
-    this.snack.openFromComponent(AlertComponent, {
-      data: { data: data },
-      duration: 3000
-    });
-  }
-
   private initializeForm() {
     const data = this.data.data;
 
     this.frm = this.fb.group({
       namePerson: new FormControl({value: data.namePerson, disabled: true}),
       lastNamePerson: new FormControl({value: data.lastNamePerson, disabled: true}),
-      totalCost: new FormControl(data.totalCost , [Validators.required, Validators.minLength(6)]),
-      totalFee: new FormControl(data.totalFee , [Validators.required, Validators.minLength(1)]),
-      idCredit: new FormControl(data.idCredit , [Validators.required])
+      totalFee: new FormControl({value: data.totalFee, disabled: true}),
+      idCredit: new FormControl(data.idCredit),
+      totalCost: new FormControl(data.totalCost , [Validators.required, Validators.minLength(7),Validators.maxLength(9)]),
     });
   }
 
-  public save(form: FormGroup) {
+  public update(form: FormGroup) {
 
     this.creditListService.update(form.value).subscribe((data: any) => {
-      this.openSnack(data);
-
-      // if (data.success) {
-        this.dialogRef.close(true);
-      // }
+      this.dialogRef.close(true);
+      this.openSnack(MSGFORM.succes.msg, true);
+    }),
+    catchError(() => {
+      this.openSnack(MSGFORM.error.msg, true);
+      return observableOf([]);
     });
      
   }
 
   public gettotalCostErrorMess() {
-    return this.frm.controls.totalCost.hasError('required') ? 'Valor crédito es obligatorio' :
-      this.frm.controls.totalCost.hasError('minlength') ? 'Al menos 6 caracteres' : '';
+    return this.frm.controls.totalCost.hasError('required') ? MSGFORM.error.fieldrequerid :
+      this.frm.controls.totalCost.hasError('maxLength') ? 'Al menos 9 caracteres' : '';
   }
 
-  public gettotalFeeErrorMess() {
-    return this.frm.controls.totalFee.hasError('required') ? 'Numero cuotas es obligatorio' :
-      this.frm.controls.name.hasError('minlength') ? 'Al menos 1 caracteres' : '';
-  } 
+  private openSnack(msg: String, succes: boolean): void {
+    const dataSnack = { message: msg, succes: succes };
+    this.snack.openFromComponent(AlertComponent, {
+      data: dataSnack,
+      duration: 3000
+    });
+  }
 
 }
+
+function observableOf(arg0: undefined[]): any {
+  throw new Error('Function not implemented.');
+}
+

@@ -4,7 +4,7 @@ export const CONSTANST = {
     routes: {
         credit: {
             list: base_path + 'credit-person/list?filter=',
-            delete: base_path + 'credit-person',
+            delete: base_path + 'credit-person/',
             save: base_path + 'credit-person',
             update: base_path + 'credit-person'
         }, maestro_list: {
@@ -17,3 +17,14 @@ export const CONSTANST = {
 
     }
 };
+
+export const MSGFORM = {
+    error:{
+       fieldrequerid: "Campo obligatorio",
+       msg: "Error al realizar la acción, Intente de nuevo"
+    }
+    ,succes: {
+        msg: "Acción realizada con éxito"
+    }
+}
+ 
