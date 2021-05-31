@@ -11,3 +11,8 @@ mat-form-field {
     margin-top: 2vh;
     text-align: right;
 }
+
+.hide-field-edit {
+    visibility: hidden;
+    height: 0vh !important
+}

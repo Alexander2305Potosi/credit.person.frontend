@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -21,6 +21,7 @@ import { MSGFORM } from 'src/app/utils/constanst';
   templateUrl: './credit-list.component.html',
   styleUrls: ['./credit-list.component.scss'],
   providers: [CreditListService]
+  
 })
 export class CreditListComponent implements AfterViewInit, OnInit {
   public displayedColumns = ['id', 'namePerson', 'lastNamePerson', 'numberIdentificationPerson', 'nameIdTypeIdentification', 'totalCost', 'totalFee', 'idCredit'];
@@ -64,10 +65,9 @@ export class CreditListComponent implements AfterViewInit, OnInit {
     }),
       catchError(() => {
         this.isLoading = false;
-        this.openSnack(MSGFORM.error.msg, true);
+        this.openSnack(MSGFORM.error.msg, false);
         return observableOf([]);
       });
-
 
   }
 
@@ -84,7 +84,7 @@ export class CreditListComponent implements AfterViewInit, OnInit {
     }),
     catchError(() => {
       this.isLoading = false;
-      this.openSnack(MSGFORM.error.msg, true);
+      this.openSnack(MSGFORM.error.msg, false);
       return observableOf([]);
     });;
 
@@ -123,7 +123,7 @@ export class CreditListComponent implements AfterViewInit, OnInit {
         }),
         catchError(() => {
           this.isLoading = false;
-          this.openSnack(MSGFORM.error.msg, true);
+          this.openSnack(MSGFORM.error.msg, false);
           return observableOf([]);
         });
       }

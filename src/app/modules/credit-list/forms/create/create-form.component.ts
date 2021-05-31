@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { CreditListService } from '../../../../services/credit-services/credit-service';
 import { AlertComponent } from '../../../../components/alert/alert.component';
@@ -58,6 +58,7 @@ export class CreateFormComponent implements OnInit {
       );
     }),
     catchError(() => {
+      this.openSnack(MSGFORM.error.msg, false);
       return Observable;
     });
   }
@@ -76,7 +77,7 @@ export class CreateFormComponent implements OnInit {
         this.openSnack(MSGFORM.succes.msg, true);
     }),
     catchError(() => {
-      this.openSnack(MSGFORM.error.msg, true);
+      this.openSnack(MSGFORM.error.msg, false);
       return new Observable();
     });
      

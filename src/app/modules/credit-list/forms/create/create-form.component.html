@@ -5,7 +5,7 @@
 
     <mat-form-field>
       <mat-label>Persona</mat-label>
-      <input type="text" placeholder="filtre por palabra" aria-label="Number" matInput formControlName='idPerson'
+      <input type="text" placeholder="Elija una opción" aria-label="Number" matInput formControlName='idPerson'
         [formControl]="frm.controls.idPerson" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredPerson | async" [value]="option">
@@ -37,7 +37,7 @@
 <div mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]>Cancelar</button>
   <button mat-raised-button color="primary" (click)='save(frm)' class="btnSave" [disabled]="!frm.valid">
-    <mat-icon aria-label="icon-button">save </mat-icon>
-    <span>Save</span>
+    <mat-icon aria-label="icon-button">save</mat-icon>
+    <span>Guardar</span>
   </button>
 </div>

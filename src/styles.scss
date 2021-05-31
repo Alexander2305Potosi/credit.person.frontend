@@ -64,15 +64,10 @@ body {
   }
 }
 
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name        : fadeIn;
-}
-
 label {
   font-family: Roboto;
 }
 
-.spacer {
-  flex: 1 1 auto !important;
+.cursor-pointer {
+  cursor: pointer;
 }

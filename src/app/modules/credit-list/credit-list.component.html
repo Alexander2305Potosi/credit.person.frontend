@@ -1,9 +1,14 @@
-<div class="animated fadeIn table-container mat-elevation-z20">
+<mat-toolbar class="toolbar" color="primary">
+  <h1 class="menu" routerLink="/" class="cursor-pointer">SC Créditos</h1>
+  <span class="spacer"></span>
+</mat-toolbar>
+
+<div class="animated fadeIn table-container mat-elevation-z20 margin-table-credit">
   <mat-card>
     <mat-card-header>
       <i class="material-icons">account_balance</i>
       <mat-card-title>Gestionar</mat-card-title>
-      <mat-card-subtitle>Listado Créditos</mat-card-subtitle>
+      <mat-card-subtitle>Listado de Créditos</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -21,7 +26,7 @@
           </button>
         </mat-form-field>
 
-        <button mat-raised-button (click)="save()" style="margin-bottom: 15px;" color="primary">
+        <button mat-raised-button (click)="save()" color="primary">
           <mat-icon>add</mat-icon> Agregar Crédito
         </button>
       </div>

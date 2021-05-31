@@ -49,7 +49,7 @@ export class EditFormComponent implements OnInit {
       this.openSnack(MSGFORM.succes.msg, true);
     }),
     catchError(() => {
-      this.openSnack(MSGFORM.error.msg, true);
+      this.openSnack(MSGFORM.error.msg, false);
       return observableOf([]);
     });
      
