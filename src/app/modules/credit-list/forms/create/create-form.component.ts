@@ -85,12 +85,12 @@ export class CreateFormComponent implements OnInit {
 
   public gettotalCostErrorMesstotalCost() {
     return this.frm.controls.totalCost.hasError('required') ? MSGFORM.error.fieldrequerid :
-      this.frm.controls.totalCost.hasError('minlength') ? 'Al menos un numero debe ser ingresado' : '';
+      this.frm.controls.totalCost.hasError('minlength') ? 'Al menos 9 numeros deben ser ingresados' : '';
   }
 
   public gettotalFeeErrorMesstotalFee() {
     return this.frm.controls.totalFee.hasError('required') ? MSGFORM.error.fieldrequerid :
-    this.frm.controls.totalFee.hasError('minlength') ? 'Al menos un numero debe ser ingresado' : '';
+    this.frm.controls.totalFee.hasError('minlength') ? 'Al menos 2 numeros deben ser ingresados' : '';
   }
 
   private openSnack(msg: String, succes: boolean): void {

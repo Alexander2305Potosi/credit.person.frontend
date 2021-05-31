@@ -57,7 +57,7 @@ export class EditFormComponent implements OnInit {
 
   public gettotalCostErrorMess() {
     return this.frm.controls.totalCost.hasError('required') ? MSGFORM.error.fieldrequerid :
-      this.frm.controls.totalCost.hasError('maxLength') ? 'Al menos 9 caracteres' : '';
+      this.frm.controls.totalCost.hasError('maxLength') ? 'Al menos 9 numeros deben ser ingresados' : '';
   }
 
   private openSnack(msg: String, succes: boolean): void {
